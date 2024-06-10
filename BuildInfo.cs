@@ -13,9 +13,13 @@ namespace Build1.UnityBuildInfo
 
         private static IBuildInfo _info;
 
-        public static IBuildInfo Get()
+        public static IBuildInfo Get(bool reload = false)
         {
-            _info ??= Load();
+            if (reload)
+                _info = Load();
+            else
+                _info ??= Load();
+            
             return _info;
         }
 
