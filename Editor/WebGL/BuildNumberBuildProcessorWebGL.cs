@@ -27,16 +27,12 @@ namespace Build1.UnityBuildInfo.Editor.WebGL
                 return;
 
             var path = Path.Join(pathToBuiltProject, "index.html");
-            Debug.Log(path);
-
             var buildNumber = BuildInfo.Get(true).BuildNumber;
-            Debug.Log(buildNumber);
-
             var contents = File.ReadAllText(path).Replace("@BUILD_NUMBER@", buildNumber.ToString());
 
             File.WriteAllText(path, contents);
 
-            Debug.Log("Build number updated in the index.html");
+            Debug.Log($"Build number updated in the index.html. Build number set: {buildNumber}");
         }
     }
 }
