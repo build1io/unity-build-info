@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Build1.UnityBuildInfo
@@ -28,6 +29,9 @@ namespace Build1.UnityBuildInfo
 
         public static IBuildInfo Set(int buildNumber, bool isSandbox)
         {
+            if (Application.isPlaying)
+                throw new NotSupportedException("Build number and mode modification not available in runtime");
+            
             var dto = new BuildInfoDto
             {
                 buildNumber = buildNumber,
