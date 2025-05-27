@@ -21,7 +21,7 @@ namespace Build1.UnityBuildInfo.Editor
         [MenuItem("Tools/Build1/Build Info/Reset Build Number", false, 1120)]
         public static void Reset()
         {
-            var currentBuildNumber = BuildNumber.Get();
+            var currentBuildNumber = BuildInfo.Get().BuildNumber;
             var result = EditorUtility.DisplayDialog("Reset Build Number?",
                                         $"Are you sure you want to reset build number?\n\nCurrent build number: {currentBuildNumber}",
                                         "Reset",

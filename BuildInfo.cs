@@ -5,7 +5,10 @@ namespace Build1.UnityBuildInfo
     [System.Serializable]
     public static class BuildInfo
     {
-        internal const string FileName = "build-info";
+        internal const string FileName                = "build-info";
+        internal const string BuildNumberFileFullName = FileName + ".json";
+        internal const string BuildNumberFolderPath   = "/Resources";
+        internal const string BuildNumberFilePath     = BuildNumberFolderPath + "/" + BuildNumberFileFullName;
 
         /*
          * Static.
@@ -19,8 +22,27 @@ namespace Build1.UnityBuildInfo
                 _info = Load();
             else
                 _info ??= Load();
-            
+
             return _info;
+        }
+
+        public static IBuildInfo Set(int buildNumber, bool isSandbox)
+        {
+            var dto = new BuildInfoDto
+            {
+                buildNumber = buildNumber,
+                isSandboxBuild = isSandbox
+            };
+
+            var folderPath = Application.dataPath + BuildNumberFolderPath;
+            if (!System.IO.Directory.Exists(folderPath))
+                System.IO.Directory.CreateDirectory(folderPath);
+
+            var filePath = Application.dataPath + BuildNumberFilePath;
+            var json = JsonUtility.ToJson(dto);
+            System.IO.File.WriteAllText(filePath, json);
+
+            return dto;
         }
 
         private static IBuildInfo Load()

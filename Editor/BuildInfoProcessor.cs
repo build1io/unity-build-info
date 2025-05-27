@@ -9,10 +9,6 @@ namespace Build1.UnityBuildInfo.Editor
     [InitializeOnLoad]
     internal abstract class BuildInfoProcessor
     {
-        private const string BuildNumberFileFullName = Build1.UnityBuildInfo.BuildInfo.FileName + ".json";
-        private const string BuildNumberFolderPath   = "/Resources";
-        private const string BuildNumberFilePath     = BuildNumberFolderPath + "/" + BuildNumberFileFullName;
-
         public static BuildInfoDto BuildInfo { get; private set; }
 
         static BuildInfoProcessor()
@@ -116,7 +112,7 @@ namespace Build1.UnityBuildInfo.Editor
 
         private static BuildInfoDto ReadBuildInfoFile()
         {
-            var path = Application.dataPath + BuildNumberFilePath;
+            var path = Application.dataPath + UnityBuildInfo.BuildInfo.BuildNumberFilePath;
             if (!File.Exists(path)) 
                 return null;
             
@@ -127,11 +123,11 @@ namespace Build1.UnityBuildInfo.Editor
 
         private static void UpdateBuildInfoFile()
         {
-            var folderPath = Application.dataPath + BuildNumberFolderPath;
+            var folderPath = Application.dataPath + UnityBuildInfo.BuildInfo.BuildNumberFolderPath;
             if (!System.IO.Directory.Exists(folderPath))
                 System.IO.Directory.CreateDirectory(folderPath);
             
-            var filePath = Application.dataPath + BuildNumberFilePath;
+            var filePath = Application.dataPath + UnityBuildInfo.BuildInfo.BuildNumberFilePath;
             var json = JsonUtility.ToJson(BuildInfo);
             System.IO.File.WriteAllText(filePath, json);
         }
