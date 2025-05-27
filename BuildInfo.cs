@@ -3,17 +3,13 @@ using UnityEngine;
 
 namespace Build1.UnityBuildInfo
 {
-    [System.Serializable]
     public static class BuildInfo
     {
-        internal const string FileName                = "build-info";
-        internal const string BuildNumberFileFullName = FileName + ".json";
-        internal const string BuildNumberFolderPath   = "/Resources";
-        internal const string BuildNumberFilePath     = BuildNumberFolderPath + "/" + BuildNumberFileFullName;
+        private const string FileName                = "build-info";
+        private const string BuildNumberFileFullName = FileName + ".json";
 
-        /*
-         * Static.
-         */
+        internal const string BuildNumberFolderPath = "/Resources";
+        internal const string BuildNumberFilePath   = BuildNumberFolderPath + "/" + BuildNumberFileFullName;
 
         private static IBuildInfo _info;
 
@@ -31,7 +27,7 @@ namespace Build1.UnityBuildInfo
         {
             if (Application.isPlaying)
                 throw new NotSupportedException("Build number and mode modification not available in runtime");
-            
+
             var dto = new BuildInfoDto
             {
                 buildNumber = buildNumber,
